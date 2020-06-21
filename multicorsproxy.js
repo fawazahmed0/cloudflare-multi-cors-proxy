@@ -1,6 +1,8 @@
 /*
 usage:
+// Array to store the list of urls to fetch, max 50 urls at one time
   var arr = ["https://developer.mozilla.org/en-US/docs/Web/API/Request","https://en.wikipedia.org/"]
+// paste your cloudflare workers dev url here
  fetch('urlofcloudflareworkerdev',{
   method: 'POST',
   body: JSON.stringify(arr)
@@ -13,7 +15,7 @@ usage:
 // This script returns consolidated responses with href link with class multicorsproxy at the top of the response
 // And a boolean value which indicates the response was successful
 // On errors it will add an a element with class multicorserror and error string inside it
-// This script will only return responses whose headers starts with text
+// This script will only return responses whose content-type header starts with text
 
 
 addEventListener('fetch', event => {
