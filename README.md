@@ -18,7 +18,7 @@ Cloudflare workers can support upto 50 url requests at a time from this script
 **Steps to setup multi-cors-proxy at cloudflare:**
 1.  Register at [here](https://dash.cloudflare.com/ "here")
 2. Create a new worker and click on quick edit
-3. Paste [this](https://raw.githubusercontent.com/fawazahmed0/cloudflare-multi-cors-proxy/master/multicorsproxy.js "this") code in there
+3. Paste [this](https://raw.githubusercontent.com/fawazahmed0/cloudflare-multi-cors-proxy/master/multicorsproxy.js "this") code in there and click save and deploy
 4. You will get a url something like:
 https://misty-tooth.username.workers.dev
 note it down.
