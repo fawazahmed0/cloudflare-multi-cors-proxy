@@ -24,6 +24,8 @@ Cloudflare workers can support upto 50 url requests at a time from this script
 https://misty-tooth.username.workers.dev
 note it down.
 
+**Below Usage example in javascript:**
+
 **Usage:**
 ```javascript
 // Array to store the list of urls to fetch, max 50 urls at one time
