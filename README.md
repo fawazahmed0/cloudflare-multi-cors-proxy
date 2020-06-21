@@ -5,9 +5,8 @@
 
 Most cors proxy available at Github (such as CORS-anywhere) can take only single url at a time, but this can take multiple urls at a time
 
-This script returns consolidated responses with href link with class multicorsproxy at the top of the response
-And a boolean value which indicates the response was successful
-On errors it will add an a element with class multicorserror and error string inside it
+This script returns consolidated responses with href link with class multicorsproxy at the top of the response and a boolean value inside the <a> tag, which indicates the response was successful or not.
+On errors it will add an <a> element with class multicorserror and error string inside it
 This script will only return responses whose content-type header starts with text, you are free to fork this code or copy the code from here and edit it to allow more content-type headers.
 
 **Benefits:**
