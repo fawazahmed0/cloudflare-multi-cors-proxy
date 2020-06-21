@@ -10,6 +10,7 @@ On errors it will add an <a> element with class multicorserror and error string 
 This script will only return responses whose content-type header starts with text, you are free to fork this code or copy the code from here and edit it to allow more content-type headers.
 
 **Benefits:**
+
 No matter how many urls you request at a single time, it will be counted as just 1 request by cloudflare, so you can fetch like 20 urls at a time and cloudflare will count as one request
 
 **Note:**
