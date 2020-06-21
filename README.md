@@ -29,7 +29,7 @@ note it down.
 // Array to store the list of urls to fetch, max 50 urls at one time
   var arr = ["https://developer.mozilla.org/en-US/docs/Web/API/Request","https://en.wikipedia.org/"]
   // Paste the url which you got in step 4
- fetch('<https://misty-tooth.username.workers.dev',{>
+ fetch('https://misty-tooth.username.workers.dev',{
   method: 'POST',
   body: JSON.stringify(arr)
 })
