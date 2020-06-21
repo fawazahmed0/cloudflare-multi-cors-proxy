@@ -2,12 +2,16 @@
  CORS Proxy which can take multiple url requests at a time
 
 **How this script works:**
+
 Most cors proxy available at Github (such as CORS-anywhere) can take only single url at a time, but this can take multiple urls at a time
 
 This script returns consolidated responses with href link with class multicorsproxy at the top of the response
 And a boolean value which indicates the response was successful
 On errors it will add an a element with class multicorserror and error string inside it
 This script will only return responses whose content-type header starts with text, you are free to fork this code or copy the code from here and edit it to allow more content-type headers.
+
+**Benefits:**
+No matter how many urls you request at a single time, it will be counted as just 1 request by cloudflare, so you can fetch like 20 urls at a time and cloudflare will count as one request
 
 **Note:**
 Cloudflare workers can support upto 50 url requests at a time from this script
