@@ -43,7 +43,7 @@ async function handleRequest(request) {
   let urlArr = JSON.parse(requestText)
   let results = ""
 
-  for (url of urlArr) {
+  for (var url of urlArr) {
     fetchRes = fetch(url, {
         headers: browserrequest.headers
       })
@@ -67,7 +67,7 @@ async function textWIthUrl(response) {
     let newval = "<a class='multicorsproxy' href='" + urlval + "'>" + okstatus + "</a>"
     let res = await response.text()
 
-    return await newval + res
+    return newval + res
   }
   return ""
 
