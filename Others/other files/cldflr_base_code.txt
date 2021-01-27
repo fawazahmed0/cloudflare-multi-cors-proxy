@@ -1,0 +1,46 @@
+// remove unnecessary comments
+
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+/**
+ * Respond to the request
+ * @param {Request} request
+ */
+async function handleRequest(request) {
+
+const myurl = 'https://www.google.com/search?&q=junta';
+
+   // passing request in contructor will emulate requests directly from user browsers i.e ip address
+  request = new Request(myurl, request)
+  // Set Origin to google itself
+ request.headers.set('Origin', new URL(myurl).origin)
+// using var instead of let for response variable, seems to solve the problem for 302 document moved error
+  // let will have block scope and var will have function scope
+  var response = await fetch(request)
+ 
+ // let text = await response.text()
+   
+ // let linker =   text.search("hello")
+
+
+//   var pos =   text.search('google')
+
+ // Recreate the response so we can modify the headers
+  response = new Response(response.body, response)
+  // Set CORS headers
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  
+  // Append to/Add Vary header so browser will cache response correctly
+  response.headers.append('Vary', 'Origin')
+
+
+  
+  return response
+ // return new Response(response.body, {status: 200})
+
+
+
+}
+
