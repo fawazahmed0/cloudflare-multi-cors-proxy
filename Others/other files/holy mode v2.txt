@@ -1,0 +1,93 @@
+async function handleRequest(request) {
+  const requestinit = {
+    headers: {
+      'content-type': 'text/html;charset=UTF-8',
+    },
+  }
+  const responseinit = {
+    headers: {
+      'content-type': 'text/html;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Vary': 'Origin',
+    },
+  }
+
+  let count = 0
+  let responsearr = []
+  let maxlinks = 6
+  let results = ""
+  let responses
+  for (url of myurl) {
+    responsearr.push(fetch(url, requestinit))
+    count++
+
+    if (count % maxlinks == 0) {
+      responses = await Promise.all(responsearr)
+      // Arrow function 
+      // Source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+      results = results.concat(await Promise.all(responses.map(response => response.text())))
+      //emptying array
+      responsearr = []
+    }
+
+
+  }
+// Remaining urls
+responses = await Promise.all(responsearr)
+results = results.concat(await Promise.all(responses.map(response => response.text())))
+
+
+
+  /*
+  
+    const responses = await Promise.all([fetch(myurl[0], requestinit), fetch(myurl[1], requestinit), fetch(myurl[2], requestinit), fetch(myurl[3], requestinit), fetch(myurl[4], requestinit), fetch(myurl[5], requestinit)])
+    const results = await Promise.all([ responses[0].text(), responses[1].text(),  responses[2].text(), responses[3].text(), responses[4].text(), responses[5].text()])
+   
+     const responses1 = await Promise.all([fetch(myurl[6], requestinit), fetch(myurl[7], requestinit), fetch(myurl[8], requestinit), fetch(myurl[9], requestinit), fetch(myurl[10], requestinit), fetch(myurl[11], requestinit)])
+    const results1 = await Promise.all([responses1[0].text(), responses1[1].text(), responses1[2].text(), responses1[3].text(), responses1[4].text(), responses1[5].text()])
+   
+     const responses2 = await Promise.all([fetch(myurl[12], requestinit), fetch(myurl[13], requestinit), fetch(myurl[14], requestinit), fetch(myurl[15], requestinit), fetch(myurl[16], requestinit), fetch(myurl[17], requestinit)])
+    const results2 = await Promise.all([responses2[0].text(), responses2[1].text(), responses2[2].text(), responses2[3].text(), responses2[4].text(), responses2[5].text()])
+   
+   */
+  // const allrez = await Promise.all(results1,results)
+
+  return new Response(results, responseinit)
+
+
+  //  res.headers.set('Access-Control-Allow-Origin', '*')
+
+
+  // response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+
+  // Append to/Add Vary header so browser will cache response correctly
+  // res.headers.append('Vary', 'Origin')
+  // return res
+}
+addEventListener('fetch', event => {
+  return event.respondWith(handleRequest(event.request))
+})
+
+
+
+var myurl = ['https://en.wikipedia.org/wiki/Apple',
+  'https://www.hsph.harvard.edu/nutritionsource/food-features/apples/',
+  'https://www.besthealthmag.ca/best-eats/nutrition/health-benefits-apples/',
+  'https://www.apple.com/in/',
+  'https://www.webmd.com/food-recipes/benefits-apples#1',
+  'http://www.eatingwell.com/article/17769/5-health-benefits-of-an-apple/',
+  'https://www.livescience.com/44686-apple-nutrition-facts.html',
+  'https://developer.mozilla.org/en-US/docs/Web/API/Response/Response',
+  'https://www.w3schools.com/js/',
+  'https://www.aljazeera.com/',
+  'https://www.javascript.com/',
+  'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+  'https://javascript.info/',
+  'https://www.typescriptlang.org/',
+  'https://github.com/microsoft/TypeScript',
+  'https://en.wikipedia.org/wiki/TypeScript',
+  'https://devblogs.microsoft.com/typescript/',
+  'https://www.healthline.com/nutrition/10-health-benefits-of-apples',
+  'https://www.medicalnewstoday.com/articles/267290',
+
+]

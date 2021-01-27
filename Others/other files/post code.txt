@@ -1,0 +1,49 @@
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+/**
+ * Respond to the request
+ * @param {Request} request
+ * 
+ */
+  const responseinit = {
+    headers: {
+      'content-type': 'text/html;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Vary': 'Origin',
+    },
+  }
+
+async function handleRequest(request) {
+ // let reqBody = await readRequestBody(request)
+ let ret = await request.text()
+ // I think don't have to decode when fetching result
+  return new Response(decodeURIComponent(ret), responseinit)
+}
+
+
+
+
+
+
+// fetching code
+
+
+
+fetch("https://misty-tooth-3da3.fawazahmed0.workers.dev",
+{
+    method: "POST",
+
+    // whatever data you want to post with a key-value pair
+
+    body: 'searchquery='+encodeURIComponent("ਸੰਸਾਰ") +'&param2=hello',
+    headers: 
+    {
+        "Content-Type": "application/x-www-form-urlencoded"
+    }
+
+}).then((response) => 
+{ 
+   console.log(response.text())
+});

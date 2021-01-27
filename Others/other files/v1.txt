@@ -1,0 +1,139 @@
+addEventListener('fetch', event => {
+  event.respondWith(handleRequest(event.request))
+})
+
+/**
+ * Respond to the request
+ * @param {Request} request
+ */
+async function handleRequest(request) {
+// Have to add code to get the params
+const myurl = 'https://www.google.com/search?&q=packed';
+
+   // passing request in contructor will emulate requests directly from user browsers i.e ip address
+  request = new Request(myurl, request)
+  // Set Origin to google itself
+ request.headers.set('Origin', new URL(myurl).origin)
+// using var instead of let for response variable, seems to solve the problem for 302 document moved error
+  // let will have block scope and var will have function scope
+  var response = await fetch(request)
+ 
+//  let text = await response.text()
+   
+ // let linker =   text.search("hello")
+
+
+//   var pos =   text.search('google')
+
+ // Recreate the response so we can modify the headers
+  response = new Response(response.body, response)
+  // Set CORS headers
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  
+  // Append to/Add Vary header so browser will cache response correctly
+  response.headers.append('Vary', 'Origin')
+//   const rewriter = new HTMLRewriter().on('a[href]', new ElementHandler())
+
+
+ // let toy = await response.text()
+ // toy =  toy.replace(/google/gi, 'panda')
+
+ // return response
+ // return new Response(toy, {status: 200})
+   const rewriter = new HTMLRewriter().on('a[href]', new FetchLinks())
+   let newresponse = rewriter.transform(response)
+
+const results = await Promise.all(responses)
+  response = new Response(results.body, response)
+  // Set CORS headers
+  response.headers.set('Access-Control-Allow-Origin', '*')
+  
+  // Append to/Add Vary header so browser will cache response correctly
+  response.headers.append('Vary', 'Origin')
+
+
+
+  return response
+ // return new Response(console.log(links), {status: 200})
+//  return newresponse
+
+  // return response
+//  return new Response(abc, {status: 200})
+
+
+
+}
+var abc = 'anna' 
+var linkpattern = /https?:\/\/.*?&amp;/
+var ignorepattern = /(google|youtube|#)/
+var links = []
+var responses = []
+
+class FetchLinks {
+  element(element) {
+    // An incoming element, such as `div`
+  //  console.log(`Incoming element: ${element.getAttribute('href')}`)
+
+ 
+let linkarray = `${element.getAttribute('href')}`.match(linkpattern)
+if(Array.isArray(linkarray) && linkarray.length > 0){
+  // Ref: https://stackoverflow.com/questions/11743392/check-if-an-array-is-empty-or-exists
+  if(!ignorepattern.test(linkarray[0])){
+
+    // Remove &amp; and unescape the link
+ linkarray[0] = linkarray[0].substring(0, linkarray[0].length - 5)
+ linkarray[0] = unescape(linkarray[0]);
+ // links.push(linkarray[0])
+    console.log(linkarray[0])
+// code to fetch the links
+
+request = new Request(linkarray[0], request)
+  // Set Origin to google itself
+ request.headers.set('Origin', new URL(linkarray[0]).origin)
+// using var instead of let for response variable, seems to solve the problem for 302 document moved error
+  // let will have block scope and var will have function scope
+// have to write code to remove/avoid multiple same links
+
+  let res = await fetch(request)
+   responses.push(res)
+ // let text = await response.text()
+   
+ // let linker =   text.search("hello")
+
+
+//   var pos =   text.search('google')
+
+ // Recreate the response so we can modify the headers
+ // response = new Response(response.body, response)
+  // Set CORS headers
+ // response.headers.set('Access-Control-Allow-Origin', '*')
+  
+  // Append to/Add Vary header so browser will cache response correctly
+ // response.headers.append('Vary', 'Origin')
+
+
+  
+ // return response
+
+
+
+
+
+  }
+      
+
+}
+
+  //  console.log(`${element.getAttribute('href')}`)
+
+  }
+
+  comments(comment) {
+    // An incoming comment
+  }
+
+  text(text) {
+    // An incoming piece of text
+  }
+}
+

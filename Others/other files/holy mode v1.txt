@@ -1,0 +1,82 @@
+async function handleRequest(request) {
+  const requestinit = {
+    headers: {
+      'content-type': 'text/html;charset=UTF-8',
+    },
+  }
+    const responseinit = {
+    headers: {
+      'content-type': 'text/html;charset=UTF-8',
+      'Access-Control-Allow-Origin': '*',
+      'Vary':'Origin',
+    },
+  }
+  const responses = await Promise.all([fetch(myurl[0], requestinit), fetch(myurl[1], requestinit), fetch(myurl[2], requestinit), fetch(myurl[3], requestinit), fetch(myurl[4], requestinit), fetch(myurl[5], requestinit)])
+  const results = await Promise.all([ responses[0].text(), responses[1].text(),  responses[2].text(), responses[3].text(), responses[4].text(), responses[5].text()])
+ 
+   const responses1 = await Promise.all([fetch(myurl[6], requestinit), fetch(myurl[7], requestinit), fetch(myurl[8], requestinit), fetch(myurl[9], requestinit), fetch(myurl[10], requestinit), fetch(myurl[11], requestinit)])
+  const results1 = await Promise.all([responses1[0].text(), responses1[1].text(), responses1[2].text(), responses1[3].text(), responses1[4].text(), responses1[5].text()])
+ 
+ 
+// const allrez = await Promise.all(results1,results)
+ 
+  return new Response(results.concat(results1), responseinit)
+ 
+ 
+//  res.headers.set('Access-Control-Allow-Origin', '*')
+ 
+ 
+ // response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  
+  // Append to/Add Vary header so browser will cache response correctly
+ // res.headers.append('Vary', 'Origin')
+ // return res
+}
+addEventListener('fetch', event => {
+  return event.respondWith(handleRequest(event.request))
+})
+/**
+ * gatherResponse awaits and returns a response body as a string.
+ * Use await gatherResponse(..) in an async function to get the response body
+ * @param {Response} response
+ */
+async function gatherResponse(response) {
+  const { headers } = response
+  const contentType = headers.get('content-type')
+  if (contentType.includes('application/json')) {
+    return await response.json()
+  } else if (contentType.includes('application/text')) {
+    return await response.text()
+  } else if (contentType.includes('text/html')) {
+    return await response.text()
+  } else {
+    return await response.text()
+  }
+}
+/**
+ * Example someHost is set up to return JSON responses
+ * Replace url1 and url2  with the hosts you wish to
+ * send requests to
+ * @param {string} url the URL to send the request to
+ */
+var myurl = ['https://en.wikipedia.org/wiki/Apple',
+'https://www.hsph.harvard.edu/nutritionsource/food-features/apples/',
+'https://www.besthealthmag.ca/best-eats/nutrition/health-benefits-apples/',
+'https://www.apple.com/in/',
+'https://www.webmd.com/food-recipes/benefits-apples#1',
+'http://www.eatingwell.com/article/17769/5-health-benefits-of-an-apple/',
+'https://www.livescience.com/44686-apple-nutrition-facts.html',
+'https://developer.mozilla.org/en-US/docs/Web/API/Response/Response',
+'https://www.w3schools.com/js/',
+'https://www.aljazeera.com/',
+'https://www.javascript.com/',
+'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+'https://javascript.info/',
+'https://www.typescriptlang.org/',
+'https://github.com/microsoft/TypeScript',
+'https://en.wikipedia.org/wiki/TypeScript',
+'https://devblogs.microsoft.com/typescript/',
+'https://www.healthline.com/nutrition/10-health-benefits-of-apples',
+'https://www.medicalnewstoday.com/articles/267290',
+
+]
