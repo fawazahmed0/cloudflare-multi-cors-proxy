@@ -33,14 +33,13 @@ async function handleRequest(request) {
   // cloudflare sends differet ip address each time from fixed pool of size 3-5
   // return await fetch('https://httpbin.org/ip').then(response => response.text()).then(data => new Response(data,responseinit) )
   // https://community.cloudflare.com/t/how-do-i-read-the-request-body-as-json/155393
-  let requestText = await request.clone().text()
+  let urlArr = await request.clone().json()
   // Emulating the request received
   let browserrequest = new Request(request)
 
   browserrequest.headers.delete('Origin')
   browserrequest.headers.delete('referer')
   let responsearr = []
-  let urlArr = JSON.parse(requestText)
   let results = ""
 
   for (var url of urlArr) {
